@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+
 import styled from "styled-components";
+
+import CardPokemon from "./CardPokemon";
 
 const ContainerHome = styled.div`
   display: flex;
@@ -20,7 +22,6 @@ const Headerheader = styled.div`
   left: 0px;
   top: 0px;
   > div {
-    position: relative;
     > img {
       max-width: 307px;
       max-height: 113px;
@@ -43,42 +44,24 @@ const Headerheader = styled.div`
   }
 `;
 
-const Card = styled.p`
-  width: 440px;
-  height: 210px;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  margin-left: 0px;
-  margin-top: 0px;
-`;
+// const Card = styled.p`
+//   width: 440px;
+//   height: 210px;
+//   border-radius: 12px;
+//   display: flex;
+//   flex-direction: column;
+//   margin-left: 0px;
+//   margin-top: 0px;
+// `;
 
 //const PokeLogo = styled.img``
 
 function Home() {
-  const [pokemon, setPokemon] = useState([]);
-
   const navigate = useNavigate();
   const GoPokedex = () => {
     navigate("/pokedex");
   };
 
-  useEffect(() => {
-    getPokemons();
-  }, []);
-
-  const getPokemons = async () => {
-    await axios
-      .get("https://pokeapi.co/api/v2/pokemon?limit=20&offset=20")
-
-      .then((res) => {
-        console.log(res.data.results);
-        setPokemon(res.data.results);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
   return (
     <ContainerHome>
       <Headerheader>
@@ -96,14 +79,7 @@ function Home() {
       <div>
         <h1>Pokemon</h1>
 
-        {pokemon?.map((item) => {
-          console.log(item);
-          return (
-            <Card key={item.id}>
-              {item.name} <button>capturar</button>
-            </Card>
-          );
-        })}
+        <CardPokemon />
       </div>
     </ContainerHome>
   );
