@@ -1,70 +1,89 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import styled from "styled-components";
 
-function CardPokemon() {
-  // const { id, name } = props.pokemon;
+const Card = styled.div`
+  display: flex;
+  flex-direction: row;
+  background: #729f92;
+  border-radius: 12px;
+  padding: 10px;
+  width: 440px;
+  justify-content: space-between;
+`;
+
+const Imagem = styled.img`
+  width: 193px;
+  height: 193px;
+`;
+
+const PrimeiraColuna = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const SegundaColuna = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+function CardPokemon(props) {
+  const { name, url } = props;
 
   const [pokemon, setPokemon] = useState([]);
-  const [listaPokemon, setListaPokemon] = useState([]);
   const [click, setClick] = useState(false);
+  const [imagemUrl, setImagemUrl] = useState("");
+  const [numero, setNumero] = useState("");
+  const [tipos, setTipos] = useState([]);
+  const [capturado, setCapturado] = useState(false);
 
   const handleClick = (event) => {
-    setClick((event.currentTarget.disabled = true));
+    setCapturado(!capturado);
+    // setClick((event.currentTarget.disabled = true));
     console.log("button clicked");
   };
+
   useEffect(() => {
-    getPokemons();
-  }, []);
+    if (url) {
+      obterInfoPokemon();
+    }
+  }, [url]);
 
-  const getPokemons = async () => {
-    await axios
-      .get("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20")
+  const obterInfoPokemon = async () => {
+    const res = await axios.get(url);
+    const { sprites, order, types } = res.data; // técnica destructuring
 
-      .then((res) => {
-        console.log(res.data.results);
-        setPokemon(res.data.results);
+    setTipos(
+      types.map(({ type }) => {
+        const { name } = type;
+        return name;
       })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  useEffect(() => {
-    const listaPoke = [];
-    listaPokemon.map((poke) => {
-      axios
-        .get(`https://pokeapi.co/api/v2/pokemon/${poke.name}`)
+    );
 
-        .then((res) => {
-          listaPoke.push(res.data);
-          console.log(res.data);
-          if (listaPoke.length === 20);
-          {
-            setListaPokemon(listaPoke);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    });
-  }, [listaPokemon]);
+    // ["poison", "grass"]
+
+    setImagemUrl(sprites.other.dream_world.front_default);
+    setNumero(order);
+  };
 
   return (
-    <section>
-      {pokemon?.map((item) => {
-        console.log(item);
-        return (
-          <div key={item.id}>
-            <p>{item.name.toUpperCase()}</p>
-            {/* <img
-              src={pokemon.sprites.other.dream_world.front_default} // 
-              alt={pokemon.name}
-            /> */}
-            <button onClick={handleClick}>Capturar</button>
-            <button>Ver detalhes</button>
-          </div>
-        );
-      })}
-    </section>
+    <Card>
+      <PrimeiraColuna>
+        <span>#{numero}</span>
+        <span>{name.toUpperCase()}</span>
+        {tipos.map((tipo) => (
+          <span>{tipo}</span>
+        ))}
+        <button>Ver detalhes</button>
+      </PrimeiraColuna>
+
+      <SegundaColuna>
+        <Imagem src={imagemUrl} alt={name} />
+        <button onClick={handleClick} disabled={capturado}>
+          Capturar
+        </button>
+      </SegundaColuna>
+    </Card>
   );
 }
 
