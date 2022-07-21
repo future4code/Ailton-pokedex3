@@ -101,8 +101,8 @@ function Home() {
       <div>
         <h1>Todos Pokémons</h1>
         <Pokemons>
-          {pokemons.map(({ url, name }) => (
-            <CardPokemon url={url} name={name} />
+          {pokemons.map(({ url, name }, index) => (
+            <CardPokemon key={index} url={url} name={name} />
           ))}
         </Pokemons>
       </div>

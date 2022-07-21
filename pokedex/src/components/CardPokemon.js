@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import TipoPokemon from "./TipoPokemon";
@@ -6,7 +7,7 @@ import TipoPokemon from "./TipoPokemon";
 const Card = styled.div`
   display: flex;
   flex-direction: row;
-  background: #729f92;
+  background: ${(props) => props.backgroundCardColor || "#729f92"};
   border-radius: 12px;
   padding: 10px;
   width: 440px;
@@ -69,12 +70,33 @@ const Nome = styled.span`
 function CardPokemon(props) {
   const { name, url } = props;
 
-  const [pokemon, setPokemon] = useState([]);
-  const [click, setClick] = useState(false);
   const [imagemUrl, setImagemUrl] = useState("");
   const [numero, setNumero] = useState("");
   const [tipos, setTipos] = useState([]);
   const [capturado, setCapturado] = useState(false);
+
+  const navigate = useNavigate();
+
+  const GoDetalhes = () => {
+    navigate("/detalhe");
+  };
+
+  function backgroundCardColor(props) {
+    const { tipo } = props;
+    const backgroundCard = () => {
+      switch (tipo) {
+        case "grass":
+          return "#729F92";
+        case "flying":
+          return "#EAAB7D";
+        case "fire":
+          return "#EAAB7D";
+
+        default:
+          return "#729F92";
+      }
+    };
+  }
 
   const handleClick = (event) => {
     setCapturado(!capturado);
@@ -93,9 +115,9 @@ function CardPokemon(props) {
     const { sprites, order, types } = res.data; // técnica destructuring
 
     setTipos(
-      types.map(({ type }) => {
+      types.map(({ type, slot }) => {
         const { name } = type;
-        return name;
+        return { slot, name };
       })
     );
 
@@ -106,17 +128,17 @@ function CardPokemon(props) {
   };
 
   return (
-    <Card>
+    <Card background={backgroundCardColor}>
       <PrimeiraColuna>
         <NumeroLabel>#{numero}</NumeroLabel>
         <Nome>{name.toUpperCase()}</Nome>
         <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
-          {tipos.map((tipo) => (
-            <TipoPokemon tipo={tipo} />
+          {tipos.map(({ name }, index) => (
+            <TipoPokemon key={index} tipo={name} />
           ))}
         </div>
 
-        <DetalhesButton>Detalhes</DetalhesButton>
+        <DetalhesButton onClick={GoDetalhes}>Detalhes</DetalhesButton>
       </PrimeiraColuna>
 
       <SegundaColuna>

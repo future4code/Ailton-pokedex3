@@ -1,12 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import CardPokemon from "./CardPokemon";
 
 function Pokedex() {
   const navigate = useNavigate();
-
-  const GoDetalhes = () => {
-    navigate("/detalhe");
-  };
 
   const voltar = () => {
     navigate(-1);
@@ -16,7 +13,6 @@ function Pokedex() {
     <div>
       <h1>Pokedex</h1>
       <button onClick={voltar}>Voltar </button>
-      <button onClick={GoDetalhes}>Detalhes do Pokemon </button>
     </div>
   );
 }
