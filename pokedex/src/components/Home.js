@@ -1,7 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import styled, { createGlobalStyle } from "styled-components";
+
+import CardPokemon from "./CardPokemon";
 import axios from "axios";
-import styled from "styled-components";
+
+const GlobalStyled = createGlobalStyle`
+  body {
+    margin: 0;
+  }
+
+  @font-face {
+    font-family: 'Poppins';
+    src: url('https://fonts.googleapis.com/css2?family=Carter+One&family=Dancing+Script&family=Permanent+Marker&display=swap');  
+  }
+
+  @font-face {
+    font-family: 'Inter';
+    src: url('https://fonts.googleapis.com/css2?family=Carter+One&family=Dancing+Script&family=Permanent+Marker&display=swap');  
+  }
+`;
 
 const ContainerHome = styled.div`
   display:flex;
@@ -28,9 +47,8 @@ const Headerheader = styled.div`
 //const PokeLogo = styled.img``
 
 function Home() {
-  const [pokemon, setPokemon] = useState([]);
-
   const navigate = useNavigate();
+  const [pokemons, setPokemons] = useState([]);
   const GoPokedex = () => {
     navigate("/pokedex");
   };
@@ -40,17 +58,13 @@ function Home() {
   }, []);
 
   const getPokemons = async () => {
-    await axios
-      .get("https://pokeapi.co/api/v2/pokemon?limit=20&offset=20")
+    const res = await axios.get(
+      "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20"
+    );
 
-      .then((res) => {
-        console.log(res.data.results);
-        setPokemon(res.data.results);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    setPokemons(res.data.results);
   };
+
   return (
     <div>
       <div>
@@ -66,6 +80,7 @@ function Home() {
       })}
     </div>
     <ContainerHome>
+      <GlobalStyled />
       <Headerheader>
         <div>
           <img src="https://logodownload.org/wp-content/uploads/2017/08/pokemon-logo-8.png" alt="Pokemon"/> 
