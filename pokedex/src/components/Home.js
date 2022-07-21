@@ -1,15 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
 import CardPokemon from "./CardPokemon";
 import axios from "axios";
 
+const GlobalStyled = createGlobalStyle`
+  body {
+    margin: 0;
+  }
+
+  @font-face {
+    font-family: 'Poppins';
+    src: url('https://fonts.googleapis.com/css2?family=Carter+One&family=Dancing+Script&family=Permanent+Marker&display=swap');  
+  }
+
+  @font-face {
+    font-family: 'Inter';
+    src: url('https://fonts.googleapis.com/css2?family=Carter+One&family=Dancing+Script&family=Permanent+Marker&display=swap');  
+  }
+`;
+
 const ContainerHome = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #dddddd;
+  background-color: #5e5e5e;
 `;
 
 const Headerheader = styled.div`
@@ -49,7 +65,6 @@ const Pokemons = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 10px;
   margin: 0 40px;
 `;
 
@@ -74,6 +89,7 @@ function Home() {
 
   return (
     <ContainerHome>
+      <GlobalStyled />
       <Headerheader>
         <img
           src="https://logodownload.org/wp-content/uploads/2017/08/pokemon-logo-8.png"
