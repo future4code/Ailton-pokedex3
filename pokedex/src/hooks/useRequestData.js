@@ -6,7 +6,7 @@ const useRequestData = (url) => {
 
   useEffect(() => {
     axios
-      .get(url)
+      .get(`https://pokeapi.co/api/v2/pokemon/`)
       .then((response) => {
         setPokedex(response.data);
       })

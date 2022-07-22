@@ -2,7 +2,9 @@ import React, {useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios"
-import styled, { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from "styled-components";
+import { useParams } from "react-router-dom";
+import { ContainerHome, Headerheader } from "./Style";
 
 const GlobalStyled = createGlobalStyle`
   body {
@@ -20,64 +22,25 @@ const GlobalStyled = createGlobalStyle`
   }
 `;
 
-const ContainerHome = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: #5e5e5e;
-`;
-
-const Headerheader = styled.div`
-  background-color: white;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 160px;
-  left: 0px;
-  top: 0px;
-
-  img {
-    max-width: 307px;
-    max-height: 113px;
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin: auto;
-  }
-
-  button {
-    background-color: #33a4f5;
-    border: 1px solid #33a4f5;
-    font-size: 20px;
-    color: white;
-    width: 150px;
-    height: 50px;
-    border-radius: 8px;
-    padding: 4px, 10px, 4px, 10px;
-    position: absolute;
-    right: 15px;
-    top: 6%;
-  }
-`;
-
-
 function DetalheDoPokemon() {
   const navigate = useNavigate();
   const voltar = () => {
     navigate(-1);
   };
+  const {id} = useParams()
 
   const [details, setDetails] = useState([]);
   //const [movesList, setMovesList] = useState([]);
 
   useEffect(()=>{
-    axios.get(`https://pokeapi.co/api/v2/pokemon/1`) //TEM QUE SER O ID DO POKEMON POR USEPARAMNS
+    axios.get(`https://pokeapi.co/api/v2/pokemon/2`) //TEM QUE SER O ID DO POKEMON POR USEPARAMNS
     .then((response)=>{
       setDetails(response.data)
       console.log(response.data)
     }).catch((error)=>{
       console.log(error)
     })
-  },[])
+  },[id])
 
   return (
 
@@ -94,14 +57,13 @@ function DetalheDoPokemon() {
         <h1>DetalheDoPokemon</h1>
         <div>
           <h3> Moves </h3>
-          {details?.moves?.map((move)=>{
+          {details?.moves?.map(({move})=>{
             return ( 
               <div key={move.id}>
                 <p key={move.name}>{move.name}</p>
               </div>
              )         
-          }
-          )}
+          })}
         </div>
         <div>
           <h3>Stats</h3>
