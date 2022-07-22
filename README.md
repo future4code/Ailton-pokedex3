@@ -1,16 +1,16 @@
 # POKEDEX
 
 Nome dos integrantes: 
-- Pessoa 1
-- Pessoa 2
-- Pessoa 3
+- Fernanda Tiyomi Maciel 
+- Maria Caroline Pereira
+
 
 Link do Surge: www.link.com.br
 
 O que funciona:
-- Item 1
-- Item 2
+Home
+Botão capturar
+Pokedex
+Detalhes do Pokemon
 
 O que não funciona: 
-- Item 3
-- Item 4
