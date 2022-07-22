@@ -7,7 +7,7 @@ import TipoPokemon from "./TipoPokemon";
 const Card = styled.div`
   display: flex;
   flex-direction: row;
-  background: ${(props) => props.backgroundCardColor || "#729f92"};
+  background: ${(props) => props.background || "#729f92"};
   border-radius: 12px;
   padding: 10px;
   width: 440px;
@@ -74,6 +74,7 @@ function CardPokemon(props) {
   const [numero, setNumero] = useState("");
   const [tipos, setTipos] = useState([]);
   const [capturado, setCapturado] = useState(false);
+  const [background, setBackground] = useState("");
 
   const navigate = useNavigate();
 
@@ -81,22 +82,25 @@ function CardPokemon(props) {
     navigate("/detalhe");
   };
 
-  function backgroundCardColor(props) {
-    const { tipo } = props;
-    const backgroundCard = () => {
-      switch (tipo) {
-        case "grass":
-          return "#729F92";
-        case "flying":
-          return "#EAAB7D";
-        case "fire":
-          return "#EAAB7D";
-
-        default:
-          return "#729F92";
-      }
-    };
-  }
+  const backgroundCardColor = (tipo) => {
+    console.log(tipo);
+    switch (tipo) {
+      case "whater":
+        return "#71C3FF";
+      case "grass":
+        return "#729F92";
+      case "flying":
+        return "#EAAB7D";
+      case "fire":
+        return "#EAAB7D";
+      case "bug":
+        return "#76A866";
+      case "normal":
+        return "#BF9762";
+      default:
+        return "#729f92";
+    }
+  };
 
   const handleClick = (event) => {
     setCapturado(!capturado);
@@ -121,14 +125,19 @@ function CardPokemon(props) {
       })
     );
 
-    // ["poison", "grass"]
-
     setImagemUrl(sprites.other.dream_world.front_default);
     setNumero(order);
   };
 
+  useEffect(() => {
+    if (tipos.length > 0) {
+      const tipoPrincipal = tipos.find((tipo) => tipo.slot === 1);
+      setBackground(backgroundCardColor(tipoPrincipal.name));
+    }
+  }, [tipos]);
+
   return (
-    <Card background={backgroundCardColor}>
+    <Card background={background}>
       <PrimeiraColuna>
         <NumeroLabel>#{numero}</NumeroLabel>
         <Nome>{name.toUpperCase()}</Nome>
