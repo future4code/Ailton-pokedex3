@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CardPokemon from "./CardPokemon";
 import axios from "axios";
-import  {ContainerHome, GlobalStyled, Headerheader, Pokemons } from "./Style"
+import { ContainerHome, GlobalStyled, Headerheader, Pokemons } from "./Style";
 
 function Home() {
   const navigate = useNavigate();
   const [pokemons, setPokemons] = useState([]);
+
   const GoPokedex = () => {
     navigate("/pokedex");
   };
@@ -38,7 +39,7 @@ function Home() {
         <h1>Todos Pokémons</h1>
         <Pokemons>
           {pokemons.map(({ url, name }, index) => (
-            <CardPokemon key={index} url={url} name={name} />
+            <CardPokemon key={index} url={url} name={name} pokeId={index + 1} />
           ))}
         </Pokemons>
       </div>

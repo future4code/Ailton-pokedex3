@@ -1,19 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import TipoPokemon from "./TipoPokemon";
-//import useRequestData from "../hooks/useRequestData";
-import { Card, Imagem, PrimeiraColuna, SegundaColuna, DetalhesButton, NumeroLabel, Nome } from "./Style";
+import { GlobalContext } from "../global/GlobalContext";
+
+import {
+  Card,
+  Imagem,
+  PrimeiraColuna,
+  SegundaColuna,
+  DetalhesButton,
+  NumeroLabel,
+  Nome,
+} from "./Style";
 
 function CardPokemon(props) {
-  const { name, url } = props;
+  const { name, url, pokeId } = props;
 
   const [imagemUrl, setImagemUrl] = useState("");
   const [numero, setNumero] = useState("");
   const [tipos, setTipos] = useState([]);
   const [capturado, setCapturado] = useState(false);
   const [background, setBackground] = useState("");
-  //const [pokeData, getPokeData] = useRequestData("/detalhe", {})
+
+  const { setPokedex } = useContext(GlobalContext);
 
   const navigate = useNavigate();
 
@@ -91,7 +101,13 @@ function CardPokemon(props) {
 
       <SegundaColuna>
         <Imagem src={imagemUrl} alt={name} />
-        <button onClick={handleClick} disabled={capturado}>
+        <button
+          onClick={() => {
+            handleClick();
+            setPokedex((pokedex) => [...pokedex, pokeId]);
+          }}
+          disabled={capturado}
+        >
           Capturar
         </button>
       </SegundaColuna>
