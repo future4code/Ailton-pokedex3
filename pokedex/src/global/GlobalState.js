@@ -4,10 +4,11 @@ import axios from "axios";
 export default function GlobalState(props) {
   const [pokedex, setPokedex] = useState([]);
   const [pokemons, setPokemons] = useState([]);
+  const [pokeDetails, setPokedetails] = useState([])
 
   useEffect(() => {
     getPokemons();
-  }, [pokedex]);
+  }, [pokedex, pokeDetails]);
 
   const getPokemons = async () => {
     const pokePromises = pokedex.map(async (item) => {
@@ -26,6 +27,8 @@ export default function GlobalState(props) {
     pokedex,
     setPokedex,
     pokemons,
+    pokeDetails,
+    setPokedetails,
   };
 
   const Provider = GlobalContext.Provider;

@@ -18,7 +18,7 @@ function Home() {
 
   const getPokemons = async () => {
     const res = await axios.get(
-      "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20"
+      "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=51"
     );
 
     setPokemons(res.data.results);
@@ -36,7 +36,6 @@ function Home() {
       </Headerheader>
 
       <div>
-        <h1>Todos Pokémons</h1>
         <Pokemons>
           {pokemons.map(({ url, name }, index) => (
             <CardPokemon key={index} url={url} name={name} pokeId={index + 1} />

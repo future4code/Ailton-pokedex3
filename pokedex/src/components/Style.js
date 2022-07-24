@@ -124,3 +124,25 @@ export const Pokemons = styled.div`
   flex-wrap: wrap;
   margin: 0 40px;
 `;
+
+export const GreenContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  background-color: #729F92;
+  border-radius: 36px;
+  padding: 3% 6% 3%;
+  justify-content: space-evenly;
+  margin: 6%;
+`
+export const MovesContainer = styled.div`
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  width: 260px;
+  padding-left: 4%;
+`
+export const StatsContainer = styled.div`
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  width: 220px;
+  padding-left: 4%;
+`
