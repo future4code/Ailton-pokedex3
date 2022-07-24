@@ -6,12 +6,13 @@ Nome dos integrantes:
 - Maria Caroline Pereira
 
 
-Link do Surge: www.link.com.br
+Link do Surge: purring-notebook.surge.sh
 
 O que funciona:
-Home,
-Botão capturar,
-Pokedex,
-Detalhes do Pokemon.
+Home: Mostrar os pokemons nos cards. 
+Botão capturar: só permite capturar uma vez.
+Pokedex: Mostra o nome do Pokemon capturado.
+Detalhes pokemon: Conseguimos colocar os detalhes na tela, porém o botão não pega o pokemon que foi clickado.
 
 O que não funciona: 
+Renderizar o PokemonCard na pokedex, nem nos Detalhes.
