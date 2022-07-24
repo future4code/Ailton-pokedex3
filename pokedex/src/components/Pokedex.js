@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ContainerHome, Headerheader, GlobalStyled } from "./Style";
 //import axios from "axios";
 import { GlobalContext } from "../global/GlobalContext";
-import CardPokemon from "./CardPokemon";
+//import CardPokemon from "./CardPokemon";
 
 function Pokedex() {
   const navigate = useNavigate();
