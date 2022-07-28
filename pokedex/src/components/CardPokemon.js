@@ -23,7 +23,7 @@ function CardPokemon(props) {
   const [capturado, setCapturado] = useState(false);
   const [background, setBackground] = useState("");
 
-  const { setPokedex } = useContext(GlobalContext);
+  const { setPokedex, setPokeDetails } = useContext(GlobalContext);
 
   const navigate = useNavigate();
 
@@ -51,9 +51,8 @@ function CardPokemon(props) {
     }
   };
 
-  const handleClick = (event) => {
+  const handleClick = () => {
     setCapturado(!capturado);
-    // setClick((event.currentTarget.disabled = true));
     console.log("button clicked");
   };
 
@@ -93,10 +92,15 @@ function CardPokemon(props) {
         <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
           {tipos.map(({ name }, index) => (
             <TipoPokemon key={index} tipo={name} />
+            
           ))}
         </div>
-
-        <DetalhesButton onClick={GoDetalhes}>Detalhes</DetalhesButton>
+        <DetalhesButton 
+        onClick={()=>{
+          GoDetalhes( navigate, name );
+        }}
+        >Detalhes
+        </DetalhesButton>
       </PrimeiraColuna>
 
       <SegundaColuna>
