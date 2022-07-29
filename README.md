@@ -1,16 +1,18 @@
-# POKEDEX
+# POKEDEX 🐹🎮
+
 
 Nome dos integrantes: 
-- Pessoa 1
-- Pessoa 2
-- Pessoa 3
+- Fernanda Tiyomi Maciel 
+- Maria Caroline Pereira
 
-Link do Surge: www.link.com.br
+
+Link do Surge: purring-notebook.surge.sh
 
 O que funciona:
-- Item 1
-- Item 2
+Home: Mostrar os pokemons nos cards. 
+Botão capturar: só permite capturar uma vez.
+Pokedex: Mostra o nome do Pokemon capturado.
+Detalhes pokemon: Conseguimos colocar os detalhes na tela, porém o botão não pega o pokemon que foi clickado.
 
 O que não funciona: 
-- Item 3
-- Item 4
+Renderizar o PokemonCard na pokedex, nem nos Detalhes.
